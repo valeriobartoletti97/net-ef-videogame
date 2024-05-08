@@ -22,5 +22,35 @@ namespace net_ef_videogame
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public List<Videogame> Videogames { get; set; }
+
+        public SoftwareHouse( string name, string city, string country)
+        { 
+            Name = name;
+            tax_Id = "tax-id-test";
+            City = city;
+            Country = country;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+        public SoftwareHouse() { }
     }
+
+    public static class SoftwareHouseManager 
+    { 
+        public static void InserisciSoftwareHouse( SoftwareHouse softwareHouse )
+        {
+            try
+            {
+                using VideogameContext db = new VideogameContext();
+                db.Add(softwareHouse);
+                db.SaveChanges();
+                Console.WriteLine($"{softwareHouse.Name} è stato inserito!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine( e.ToString() );
+            }
+        }
+    }
+
 }
