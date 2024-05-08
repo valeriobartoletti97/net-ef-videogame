@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using net_ef_videogame;
 
@@ -11,9 +12,11 @@ using net_ef_videogame;
 namespace net_ef_videogame.Migrations
 {
     [DbContext(typeof(VideogameContext))]
-    partial class VideogameContextModelSnapshot : ModelSnapshot
+    [Migration("20240508150148_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,31 +36,25 @@ namespace net_ef_videogame.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("city");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("country");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("created_at");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("updated_at");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("tax_Id")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("tax_id");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SoftwareHouseId");
 

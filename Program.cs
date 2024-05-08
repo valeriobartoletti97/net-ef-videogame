@@ -6,9 +6,9 @@
         {
 
             using VideogameContext db = new VideogameContext();
-            Videogame videogame = new Videogame("Ciao", "Ciao", "22/01/1997", DateTime.Now, DateTime.Now, 1);
+            /*Videogame videogame = new Videogame("Ciao", "Ciao", "22/01/1997", DateTime.Now, DateTime.Now, 1);
             db.Add(videogame);
-            db.SaveChanges();
+            db.SaveChanges();*/
             int ProgramOn = 1;
             while (ProgramOn != 0)
             {
@@ -30,7 +30,9 @@
                         VideogameManager.SearchGameId();
                         break;
                     case "3":
-                        VideogameManager.SearchGameName();
+                        Console.WriteLine("Inserisci il nome del videogioco da cercare:");
+                        string videogameName = Console.ReadLine();
+                        VideogameManager.SearchGameName(videogameName);
                         break;
                     case "4":
                         VideogameManager.DeleteGameById();

@@ -17,12 +17,19 @@ namespace net_ef_videogame
 public class Videogame
 {
     [Key]
+    [Column("id")]
     public int VideogameId { get; set; }
+    [Column("name")]
     public string Name { get; set; }
+    [Column("overview")]
     public string Overview { get; set; }
+    [Column("release_date")]
     public string ReleaseDate { get; set; }
+    [Column("created_at")]
     public DateTime CreatedAt { get; set; }
+    [Column("updated_at")]
     public DateTime UpdatedAt { get; set; }
+    [Column("software_house_id")]
     public int SoftwareHouseId { get; set; }
     public SoftwareHouse SoftwareHouse { get; set; }
 
@@ -117,41 +124,27 @@ public static class VideogameManager
         }
     }
 
-    public static void SearchGameName()
+    public static void SearchGameName(string name)
     {
-        using (SqlConnection connectionSql = new SqlConnection(CONNECTION_STRING))
-        {
+            using VideogameContext db = new VideogameContext();
             try
             {
-                connectionSql.Open();
-                Console.Write("Inserisci il nome del gioco che stai cercando:");
-                string dataString = Console.ReadLine();
-                string query = $"SELECT name, id FROM videogames WHERE name LIKE @Data";
-                using (SqlCommand cmd = new SqlCommand(query, connectionSql))
+                List<Videogame> videogame = db.Videogames.Where(x => x.Name.Contains(name)).ToList<Videogame>();
+                if(videogame.Count > 0)
                 {
-                    cmd.Parameters.Add(new SqlParameter("@Data", "%" + dataString + "%"));
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            while (reader.Read())
-                            {
-                                Console.WriteLine("Nome: " + reader.GetString(0));
-                                Console.WriteLine("Id: " + reader.GetInt64(1));
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Error");
-                        }
-                    }
+                    Console.WriteLine("Ecco i tuoi risultati:");
+                    videogame.ToList().ForEach(x => Console.WriteLine(x.Name));
+                }
+                else
+                {
+                    Console.WriteLine("Non è stato trovato alcun videogioco");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-        }
+        
     }
 
     public static void DeleteGameById()
