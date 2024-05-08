@@ -44,7 +44,7 @@ namespace net_ef_videogame
 
     public static class SoftwareHouseManager 
     { 
-        public static void InserisciSoftwareHouse( SoftwareHouse softwareHouse )
+        public static void InsertSoftwareHouse( SoftwareHouse softwareHouse )
         {
             try
             {

@@ -24,8 +24,36 @@
                 switch (choice)
                 {
                     case "1":
-                        VideogameManager.InsertVideogame();
-                        break;
+                        try
+                        {
+                            //CREO UN VIDEOGAME
+                            Console.WriteLine("Inserisci nome del videogioco:");
+                            string name = Console.ReadLine();
+                            Console.WriteLine("Inserisci descrizione del videogioco:");
+                            string overview = Console.ReadLine();
+                            Console.WriteLine("Inserisci la data di rilascio del videogioco in formato GG/MM/AAAA:");
+                            string releaseDate = Console.ReadLine();
+                            DateTime createdAt = DateTime.Now;
+                            DateTime updatedAt = DateTime.Now;
+                            Console.WriteLine("Inserisci l'id della software house");
+                            int softwareHouseId = 0;
+                            try
+                            {
+                                softwareHouseId = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.ToString());
+                            }
+                            Videogame videogame = new Videogame(name, overview, releaseDate, createdAt, updatedAt, softwareHouseId);
+                            VideogameManager.InsertVideogame(videogame);
+                            break;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                            break;
+                        }
                     case "2":
                         Console.Write("Inserisci l'id del gioco che stai cercando:");
                         try
@@ -67,7 +95,7 @@
                             Console.WriteLine("Inserisci la sede della software house:");
                             string city = Console.ReadLine();
                             SoftwareHouse softwareHouse = new SoftwareHouse(name, country, city);
-                            SoftwareHouseManager.InserisciSoftwareHouse(softwareHouse);
+                            SoftwareHouseManager.InsertSoftwareHouse(softwareHouse);
                         }
                         catch (Exception e) 
                         {  
