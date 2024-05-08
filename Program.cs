@@ -27,8 +27,18 @@
                         VideogameManager.InsertVideogame();
                         break;
                     case "2":
-                        VideogameManager.SearchGameId();
-                        break;
+                        Console.Write("Inserisci l'id del gioco che stai cercando:");
+                        try
+                        {
+                            int searchId = Convert.ToInt32(Console.ReadLine());
+                            VideogameManager.SearchGameId(searchId);
+                            break;
+                        }
+                        catch(Exception e) 
+                        {  
+                            Console.WriteLine(e.ToString());
+                            break;
+                        }
                     case "3":
                         Console.WriteLine("Inserisci il nome del videogioco da cercare:");
                         string videogameName = Console.ReadLine();

@@ -90,38 +90,27 @@ public static class VideogameManager
             }
         }
     }
-    public static void SearchGameId()
+    public static void SearchGameId(int id)
     {
-        using (SqlConnection connectionSql = new SqlConnection(CONNECTION_STRING))
+        using VideogameContext db = new VideogameContext();
+        try
         {
-            try
-            {
-                connectionSql.Open();
-                Console.Write("Inserisci l'id del gioco che stai cercando:");
-                string searchId = Console.ReadLine();
-                string query = "SELECT name, release_date FROM videogames WHERE id = @Id";
-                using (SqlCommand cmd = new SqlCommand(query, connectionSql))
+            Videogame videogame = db.Videogames.Where(x => x.VideogameId == id).FirstOrDefault();
+                if (videogame != null)
                 {
-                    cmd.Parameters.Add(new SqlParameter("@Id", searchId));
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string dataName = reader.GetString(0);
-                            Console.WriteLine($"Il nome del gioco è : {dataName}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("L'id del gioco che cerchi non è presente nel database.");
-                        }
-                    }
+                    Console.Write("Il gioco che stavi cercando è: ");
+                    Console.WriteLine(videogame.Name);
+                }
+                else
+                {
+                    Console.WriteLine("Il gioco che cerchi non è presente.");
                 }
             }
-            catch (Exception e)
-            {
+        catch (Exception e)
+        {
                 Console.WriteLine(e.ToString());
-            }
         }
+        
     }
 
     public static void SearchGameName(string name)
