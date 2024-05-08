@@ -136,34 +136,27 @@ public static class VideogameManager
         
     }
 
-    public static void DeleteGameById()
+    public static void DeleteGameById(int id)
     {
         using (SqlConnection connectionSql = new SqlConnection(CONNECTION_STRING))
         {
-            try
-            {
-                connectionSql.Open();
-                Console.Write("Inserisci l'Id del gioco che vuoi eliminare:");
-                string dataId = Console.ReadLine();
-                string query = $"DELETE FROM videogames where id = @Id";
-                using (SqlCommand cmd = new SqlCommand(query, connectionSql))
+                using VideogameContext db = new VideogameContext();
+                try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@Id", dataId));
-                    int affectedRows = cmd.ExecuteNonQuery();
-                    if (affectedRows > 0)
+                    var videogame = db.Videogames.Where(x => x.VideogameId == id).ExecuteDelete();
+                    if (videogame != null)
                     {
-                        Console.WriteLine($"Il gioco con id uguale a {dataId} è stato eliminato");
+                        Console.Write($"Il gioco è stato eliminato ");
                     }
                     else
                     {
-                        Console.WriteLine("Si è verificato un errore");
+                        Console.WriteLine("Il gioco che cerchi non è presente.");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
         }
     }
 }

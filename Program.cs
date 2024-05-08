@@ -45,8 +45,18 @@
                         VideogameManager.SearchGameName(videogameName);
                         break;
                     case "4":
-                        VideogameManager.DeleteGameById();
-                        break;
+                        Console.Write("Inserisci l'id del gioco che vuoi eliminare:");
+                        try
+                        {
+                            int searchId = Convert.ToInt32(Console.ReadLine());
+                            VideogameManager.DeleteGameById(searchId);
+                            break;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                            break;
+                        }
                     case "5":
                         try
                         {
